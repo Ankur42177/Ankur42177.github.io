@@ -5,10 +5,10 @@ summary: Back-to-back individual awards (PFA 2021, Premier League Player of the 
 tags: Man City, Kevin De Bruyne, Premier League, Four in a row
 category: sports
 cover: /blog/kdb.jpg
-coverAlt: Kevin De Bruyne playing for Manchester City
-coverPosition: center 25%
-coverCredit: dom fellowes, CC BY 2.0, via Wikimedia Commons
-coverCreditUrl: https://commons.wikimedia.org/wiki/File:Kevin_de_Bruyne_2016-12-26_(cropped).jpg
+coverAlt: Kevin De Bruyne (17) in action for Manchester City at Fulham, May 2024
+coverPosition: center
+coverCredit: Timmy96, Fulham vs Manchester City (11 May 2024), CC0, via Wikimedia Commons
+coverCreditUrl: https://commons.wikimedia.org/wiki/File:Fulham_vs_Manchester_City,_11_May_2024_(7).jpg
 ---
 
 Between 2020/21 and 2023/24, Manchester City did something no English men's team had ever done: they won **four top-flight league titles in a row**. Pep Guardiola's system changed a lot over those four seasons. Strikers came and went, full-backs became midfielders, and centre-backs became full-backs. One thing stayed the same: **Kevin De Bruyne** decided the biggest moments.
