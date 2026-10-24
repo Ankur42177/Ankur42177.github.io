@@ -5,9 +5,9 @@ import "./globals.css";
 const inter = Inter({ variable: "--font-inter", subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Ankur Kumar — AI & Security Engineer",
+  title: "Ankur Kumar — Software Developer & AI Engineer",
   description:
-    "Portfolio of Ankur Kumar, Software Engineer at Trellix: agentic AI, LLMs, security engineering and Windows drivers.",
+    "Portfolio of Ankur Kumar, Software Developer & AI Engineer at Trellix: agentic AI, LLMs and endpoint security.",
 };
 
 // Applies the saved/system theme before first paint to avoid a light flash.

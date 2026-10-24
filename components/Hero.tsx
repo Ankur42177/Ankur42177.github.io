@@ -25,9 +25,9 @@ export default function Hero() {
 
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2, duration: 0.6 }}>
         <p className="text-xl text-muted md:text-2xl">Hey, I&apos;m {profile.firstName} 👋</p>
-        <h1 className="mt-2 text-5xl font-bold tracking-tight md:text-7xl">{profile.role}</h1>
+        <h1 className="mx-auto mt-2 max-w-4xl text-balance text-5xl font-bold tracking-tight md:text-6xl lg:text-7xl">{profile.role}</h1>
         <p className="mt-3 inline-flex items-center gap-1.5 text-muted">
-          Software Engineer @ {profile.company} <span className="mx-1">·</span> <MapPin size={15} /> {profile.location}
+          {profile.company} <span className="mx-1">·</span> <MapPin size={15} /> {profile.location}
         </p>
         <p className="mx-auto mt-6 max-w-xl text-lg text-muted">{profile.tagline}</p>
 

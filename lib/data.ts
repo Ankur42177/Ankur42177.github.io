@@ -3,11 +3,11 @@
 export const profile = {
   name: "Ankur Kumar",
   firstName: "Ankur",
-  role: "AI & Security Engineer",
+  role: "Software Developer & AI Engineer",
   company: "Trellix",
   location: "Bangalore, India",
   tagline:
-    "I build agentic AI systems, security pipelines and low-level Windows drivers — and I like shipping things that actually get used.",
+    "I build agentic AI systems and endpoint security software — from LLM-powered tools to server-side Java services — and I like shipping things that actually get used.",
   email: "ankur42177@gmail.com",
   phone: "", // e.g. "+91 98765 43210" — the phone card appears once this is set
   github: "https://github.com/Ankur42177",
@@ -40,22 +40,25 @@ export const projects = [
 
 export const experience = [
   {
-    role: "Software Engineer",
+    role: "Software Developer & AI Engineer",
     company: "Trellix",
     period: "Jun 2023 — Present",
     location: "Bangalore, India",
     points: [
-      "Built RuleCraft AI, a Gemini-based rule generator that won 2nd place and a $5,000 award",
+      "Implemented Expert Rules support for canned (vendor-defined) signatures in Exploit Prevention, enabling the macOS and Linux endpoint teams to ship the same rule-based protection as Windows",
+      "Single-handedly designed and built the server-side service (Java, Spring Boot, SQL) that manages assignment of canned and user-defined signatures to managed endpoint nodes, and supported the OS teams in integrating it on each platform",
+      "Owned triage of customer escalations for Endpoint Security for Windows (ENSW) from multi-million-dollar enterprise accounts, driving root-cause analysis and fixes across ENS modules",
+      "Resolved a critical customer escalation where the management database had hung, diagnosing the issue in the Java/Spring Boot and SQL server layer and restoring service",
+      "Built RuleCraft AI, a Gemini-based security rule generator that won 2nd place and a $5,000 hackathon award",
       "Fine-tuned Gemini models on Vertex AI for security use cases",
       "Built a threat event processing pipeline for distributed security event processing",
-      "Developed Windows kernel drivers and took them through WHQL certification",
     ],
   },
 ];
 
 export const skills: Record<string, string[]> = {
   "AI Engineering": ["Vertex AI", "Gemini", "LangChain", "LangGraph", "MCP", "RAG", "Agentic AI"],
-  "Security": ["Windows Drivers", "Kernel Development", "WHQL", "AMSI", "PatchGuard"],
-  "Backend": ["Java", "Spring Boot", "Node.js", "Django", "REST APIs", "Distributed Systems"],
+  "Security": ["Endpoint Security (ENS)", "Exploit Prevention", "Expert Rules", "Windows Drivers", "Kernel Development", "AMSI", "PatchGuard"],
+  "Backend": ["Java", "Spring Boot", "SQL", "Node.js", "Django", "REST APIs", "Distributed Systems"],
   "DevOps & Data": ["Docker", "Jenkins", "Git", "CI/CD", "MongoDB", "GCS"],
 };
