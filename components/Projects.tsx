@@ -10,17 +10,17 @@ export default function Projects() {
         {projects.map((p) => (
           <Reveal key={p.title}>
             <article className="card relative overflow-hidden p-8 md:p-10">
-              <div className="absolute -right-20 -top-20 h-64 w-64 rounded-full bg-gradient-to-br from-violet-200 to-sky-100 opacity-60 blur-3xl" />
+              <div className="absolute -right-20 -top-20 h-64 w-64 rounded-full bg-gradient-to-br from-violet-200 to-sky-100 opacity-60 dark:from-violet-900 dark:to-sky-900 dark:opacity-40 blur-3xl" />
               <div className="relative">
                 <div className="flex flex-wrap items-center gap-3">
                   <Sparkles className="text-violet-500" size={22} />
                   <h3 className="text-2xl font-bold md:text-3xl">{p.title}</h3>
-                  <span className="rounded-full bg-amber-100 px-3 py-1 text-sm font-semibold text-amber-800">{p.award}</span>
+                  <span className="rounded-full bg-amber-100 px-3 py-1 text-sm font-semibold text-amber-800 dark:bg-amber-500/15 dark:text-amber-300">{p.award}</span>
                 </div>
-                <p className="mt-4 max-w-2xl text-lg text-neutral-600">{p.description}</p>
+                <p className="mt-4 max-w-2xl text-lg text-muted">{p.description}</p>
                 <ul className="mt-6 space-y-2">
                   {p.highlights.map((h) => (
-                    <li key={h} className="flex gap-3 text-neutral-700">
+                    <li key={h} className="flex gap-3 text-fg/80">
                       <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-violet-500" />{h}
                     </li>
                   ))}
@@ -42,7 +42,7 @@ export default function Projects() {
             </article>
           </Reveal>
         ))}
-        <p className="text-center text-neutral-500">More projects coming soon ✨</p>
+        <p className="text-center text-muted">More projects coming soon ✨</p>
       </div>
     </Section>
   );

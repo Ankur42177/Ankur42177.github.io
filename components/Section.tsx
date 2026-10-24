@@ -6,7 +6,7 @@ export default function Section({ id, eyebrow, title, children }: {
   return (
     <section id={id} className="scroll-mt-24 py-20">
       <Reveal>
-        <p className="mb-2 text-sm font-medium uppercase tracking-widest text-neutral-500">{eyebrow}</p>
+        <p className="mb-2 text-sm font-medium uppercase tracking-widest text-muted">{eyebrow}</p>
         <h2 className="mb-10 text-3xl font-bold tracking-tight md:text-4xl">{title}</h2>
       </Reveal>
       {children}

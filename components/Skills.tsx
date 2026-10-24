@@ -11,7 +11,7 @@ export default function Skills() {
             <div className="card h-full">
               <h3 className="mb-4 font-semibold">{group}</h3>
               <div className="flex flex-wrap gap-2">
-                {items.map((s) => <span key={s} className="chip bg-neutral-50">{s}</span>)}
+                {items.map((s) => <span key={s} className="chip bg-soft">{s}</span>)}
               </div>
             </div>
           </Reveal>

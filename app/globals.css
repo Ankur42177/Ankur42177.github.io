@@ -1,21 +1,56 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 @theme {
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --color-bg: var(--bg);
+  --color-fg: var(--fg);
+  --color-muted: var(--muted);
+  --color-card: var(--card);
+  --color-soft: var(--soft);
+  --color-line: var(--line);
+  --color-city: #6cabdd;
+}
+
+:root {
+  --bg: #fafafa; --fg: #0a0a0a; --muted: #6b6b6b; --card: #ffffff; --soft: #f4f4f5; --line: #e5e5e5;
+  color-scheme: light;
+}
+.dark {
+  --bg: #09090b; --fg: #f4f4f5; --muted: #a1a1aa; --card: #131316; --soft: #1c1c21; --line: #27272a;
+  color-scheme: dark;
 }
 
 html { scroll-behavior: smooth; }
-body { background: #fafafa; color: #0a0a0a; overflow-x: clip; }
+body { background: var(--bg); color: var(--fg); overflow-x: clip; }
+/* Smooth colour fade when the theme is toggled */
+html.theme-anim, html.theme-anim * { transition: background-color .4s ease, border-color .4s ease, color .4s ease !important; }
 
 .card {
-  @apply rounded-3xl border border-neutral-200 bg-white p-6 shadow-[0_1px_2px_rgba(0,0,0,0.04)] transition duration-300 hover:-translate-y-1 hover:shadow-xl;
+  @apply rounded-3xl border border-line bg-card p-6 shadow-[0_1px_2px_rgba(0,0,0,0.04)] transition duration-300 hover:-translate-y-1 hover:shadow-xl dark:hover:shadow-black/40;
 }
-.chip {
-  @apply rounded-full border border-neutral-200 bg-white px-3 py-1 text-sm text-neutral-700;
-}
+.chip { @apply rounded-full border border-line bg-card px-3 py-1 text-sm text-muted; }
 .btn {
-  @apply inline-flex items-center gap-2 rounded-full bg-neutral-900 px-6 py-3 font-medium text-white transition hover:bg-neutral-700;
+  @apply inline-flex items-center gap-2 rounded-full bg-fg px-6 py-3 font-medium text-bg transition hover:opacity-85;
 }
 .btn-ghost {
-  @apply inline-flex items-center gap-2 rounded-full border border-neutral-300 bg-white px-6 py-3 font-medium transition hover:border-neutral-900;
+  @apply inline-flex items-center gap-2 rounded-full border border-line bg-card px-6 py-3 font-medium transition hover:border-fg;
 }
+
+/* Blog article typography */
+.prose-blog { @apply text-lg leading-relaxed text-fg/90; }
+.prose-blog h2 { @apply mt-12 mb-4 text-2xl font-bold text-fg; }
+.prose-blog h3 { @apply mt-8 mb-3 text-xl font-semibold text-fg; }
+.prose-blog p { @apply my-5; }
+.prose-blog ul, .prose-blog ol { @apply my-5 space-y-2 pl-6; }
+.prose-blog ul { @apply list-disc; }
+.prose-blog ol { @apply list-decimal; }
+.prose-blog li::marker { @apply text-city; }
+.prose-blog strong { @apply font-semibold text-fg; }
+.prose-blog a { @apply text-city underline underline-offset-4; }
+.prose-blog blockquote { @apply my-6 rounded-r-2xl border-l-4 border-city bg-soft px-5 py-3 italic; }
+.prose-blog code { @apply rounded bg-soft px-1.5 py-0.5 text-base; }
+.prose-blog pre { @apply my-6 overflow-x-auto rounded-2xl bg-soft p-4 text-sm leading-6; }
+.prose-blog pre code { @apply bg-transparent p-0 text-sm; }
+.prose-blog hr { @apply my-10 border-line; }
