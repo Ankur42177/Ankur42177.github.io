@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#e6f2fb"/><stop offset="1" stop-color="#b9daf2"/></linearGradient>
+  </defs>
+  <rect width="1200" height="675" fill="url(#g)"/>
+  <g stroke="#0b2540" stroke-width="3" fill="none" opacity=".55">
+    <path d="M230 337 L420 200 M230 337 L420 337 M230 337 L420 474"/>
+    <path d="M500 200 L640 200 M500 337 L640 337 M500 474 L640 474"/>
+  </g>
+  <g font-family="Inter, Arial, sans-serif" font-weight="700" font-size="22" text-anchor="middle">
+    <circle cx="190" cy="337" r="62" fill="#0b2540"/><text x="190" y="345" fill="#fff">Agent</text>
+    <rect x="420" y="170" width="160" height="60" rx="14" fill="#fff" stroke="#6cabdd" stroke-width="3"/><text x="500" y="208" fill="#0b2540">write_todos</text>
+    <rect x="420" y="307" width="160" height="60" rx="14" fill="#fff" stroke="#6cabdd" stroke-width="3"/><text x="500" y="345" fill="#0b2540">edit_file</text>
+    <rect x="420" y="444" width="160" height="60" rx="14" fill="#fff" stroke="#6cabdd" stroke-width="3"/><text x="500" y="482" fill="#0b2540">task</text>
+    <circle cx="670" cy="200" r="24" fill="#22c55e"/><text x="670" y="208" fill="#fff">✓</text>
+    <circle cx="670" cy="337" r="24" fill="#22c55e"/><text x="670" y="345" fill="#fff">✓</text>
+    <circle cx="670" cy="474" r="24" fill="#ef4444"/><text x="670" y="482" fill="#fff">✗</text>
+  </g>
+  <g font-family="Inter, Arial, sans-serif" fill="#0b2540">
+    <text x="760" y="300" font-size="66" font-weight="800">Deep evals</text>
+    <text x="760" y="356" font-size="32" font-weight="600" fill="#2f6a99">for deep agents</text>
+  </g>
+</svg>
