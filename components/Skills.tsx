@@ -1,80 +1,22 @@
-const skillGroups = {
-  "AI Engineering": [
-    "Vertex AI",
-    "Gemini",
-    "LangChain",
-    "LangGraph",
-    "MCP",
-    "RAG",
-    "Agentic AI",
-  ],
-
-  "Security Engineering": [
-    "Windows Drivers",
-    "Kernel Development",
-    "WHQL",
-    "AMSI",
-    "PatchGuard",
-  ],
-
-  Backend: [
-    "Java",
-    "Spring Boot",
-    "Node.js",
-    "Django",
-    "REST APIs",
-    "Distributed Systems",
-  ],
-
-  DevOps: [
-    "Docker",
-    "Jenkins",
-    "Git",
-    "CI/CD",
-    "MongoDB",
-    "GCS",
-  ],
-};
+import { skills } from "../lib/data";
+import Reveal from "./Reveal";
+import Section from "./Section";
 
 export default function Skills() {
   return (
-    <section className="py-24 px-10 bg-black">
-      <h2 className="text-5xl font-bold text-center mb-12">
-        Technical Skills
-      </h2>
-
-      <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-        {Object.entries(skillGroups).map(([title, skills]) => (
-          <div
-                key={title}
-                    className="
-                        bg-white/5
-                        backdrop-blur-xl
-                        border
-                        border-white/10
-                        rounded-3xl
-                        p-6
-                        hover:scale-105
-                        transition
-                        duration-300"
-                        >
-            <h3 className="text-2xl font-semibold mb-4">
-              {title}
-            </h3>
-
-            <div className="space-y-2">
-              {skills.map((skill) => (
-                <div
-                  key={skill}
-                  className="text-gray-300"
-                >
-                  ✓ {skill}
-                </div>
-              ))}
+    <Section id="skills" eyebrow="Skills" title="What I work with">
+      <div className="grid gap-5 md:grid-cols-2">
+        {Object.entries(skills).map(([group, items], i) => (
+          <Reveal key={group} delay={i * 0.08}>
+            <div className="card h-full">
+              <h3 className="mb-4 font-semibold">{group}</h3>
+              <div className="flex flex-wrap gap-2">
+                {items.map((s) => <span key={s} className="chip bg-neutral-50">{s}</span>)}
+              </div>
             </div>
-          </div>
+          </Reveal>
         ))}
       </div>
-    </section>
+    </Section>
   );
 }

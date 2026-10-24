@@ -1,11 +1,21 @@
 @import "tailwindcss";
 
-html {
-  scroll-behavior: smooth;
+@theme {
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
 }
 
-body {
-  background: black;
-  color: white;
-  margin: 0;
+html { scroll-behavior: smooth; }
+body { background: #fafafa; color: #0a0a0a; overflow-x: clip; }
+
+.card {
+  @apply rounded-3xl border border-neutral-200 bg-white p-6 shadow-[0_1px_2px_rgba(0,0,0,0.04)] transition duration-300 hover:-translate-y-1 hover:shadow-xl;
+}
+.chip {
+  @apply rounded-full border border-neutral-200 bg-white px-3 py-1 text-sm text-neutral-700;
+}
+.btn {
+  @apply inline-flex items-center gap-2 rounded-full bg-neutral-900 px-6 py-3 font-medium text-white transition hover:bg-neutral-700;
+}
+.btn-ghost {
+  @apply inline-flex items-center gap-2 rounded-full border border-neutral-300 bg-white px-6 py-3 font-medium transition hover:border-neutral-900;
 }
