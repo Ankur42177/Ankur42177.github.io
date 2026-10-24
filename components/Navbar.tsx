@@ -11,13 +11,13 @@ const links = [
   { id: "projects", label: "Projects" },
   { id: "experience", label: "Experience" },
   { id: "skills", label: "Skills" },
-  { id: "hobbies", label: "Football" },
+  { id: "playbook", label: "Playbook" },
   { id: "contact", label: "Contact" },
 ];
 
 // `base` lets the blog pages link back to sections on the home page.
 export default function Navbar({ base = "" }: { base?: string }) {
-  const [active, setActive] = useState(base ? "hobbies" : "top");
+  const [active, setActive] = useState(base ? "playbook" : "top");
 
   useEffect(() => {
     if (base) return;

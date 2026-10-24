@@ -27,6 +27,7 @@ body { background: var(--bg); color: var(--fg); overflow-x: clip; }
 /* Smooth colour fade when the theme is toggled */
 html.theme-anim, html.theme-anim * { transition: background-color .4s ease, border-color .4s ease, color .4s ease !important; }
 
+@layer components {
 .card {
   @apply rounded-3xl border border-line bg-card p-6 shadow-[0_1px_2px_rgba(0,0,0,0.04)] transition duration-300 hover:-translate-y-1 hover:shadow-xl dark:hover:shadow-black/40;
 }
@@ -36,6 +37,7 @@ html.theme-anim, html.theme-anim * { transition: background-color .4s ease, bord
 }
 .btn-ghost {
   @apply inline-flex items-center gap-2 rounded-full border border-line bg-card px-6 py-3 font-medium transition hover:border-fg;
+}
 }
 
 /* Blog article typography */
@@ -54,3 +56,12 @@ html.theme-anim, html.theme-anim * { transition: background-color .4s ease, bord
 .prose-blog pre { @apply my-6 overflow-x-auto rounded-2xl bg-soft p-4 text-sm leading-6; }
 .prose-blog pre code { @apply bg-transparent p-0 text-sm; }
 .prose-blog hr { @apply my-10 border-line; }
+
+/* Light-blue (Sky Blue) theme for blog pages */
+.theme-sky {
+  --bg: #eef6fc; --fg: #0b2540; --muted: #4f6b85; --card: #ffffff; --soft: #e1eef9; --line: #cbe1f2;
+  background: var(--bg); color: var(--fg);
+}
+.dark .theme-sky {
+  --bg: #08131f; --fg: #e8f2fb; --muted: #8fb0cc; --card: #0f2133; --soft: #13293f; --line: #1d3a55;
+}

@@ -3,10 +3,17 @@ import path from "node:path";
 import { marked } from "marked";
 
 // Blog posts are Markdown files in content/blog/. Each file starts with a
-// front-matter block (title, date, summary, tags) between --- lines.
+// front-matter block (title, date, summary, tags, category: sports|tech, and an
+// optional cover image with credit) between --- lines.
 const DIR = path.join(process.cwd(), "content/blog");
 
-export type PostMeta = { slug: string; title: string; date: string; summary: string; tags: string[]; readingMinutes: number };
+export type Category = "sports" | "tech";
+
+export type PostMeta = {
+  slug: string; title: string; date: string; summary: string; tags: string[]; readingMinutes: number;
+  category: Category;
+  cover?: string; coverAlt?: string; coverPosition?: string; coverCredit?: string; coverCreditUrl?: string;
+};
 
 function parse(file: string) {
   const raw = fs.readFileSync(path.join(DIR, file), "utf8");
@@ -26,6 +33,12 @@ function parse(file: string) {
       summary: meta.summary ?? "",
       tags: (meta.tags ?? "").split(",").map((t) => t.trim()).filter(Boolean),
       readingMinutes: Math.max(1, Math.round(body.split(/\s+/).length / 220)),
+      category: meta.category === "tech" ? "tech" : "sports",
+      cover: meta.cover,
+      coverAlt: meta.coverAlt,
+      coverPosition: meta.coverPosition,
+      coverCredit: meta.coverCredit,
+      coverCreditUrl: meta.coverCreditUrl,
     } satisfies PostMeta,
     body,
   };

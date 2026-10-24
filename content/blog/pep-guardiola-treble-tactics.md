@@ -3,6 +3,12 @@ title: How Pep Guardiola Built the Treble: The 3-2-4-1 That Conquered Europe
 date: 2026-10-24
 summary: John Stones stepping into midfield, four centre-backs across the back and Haaland up top. A breakdown of the system behind Manchester City's 2022/23 treble.
 tags: Man City, Pep Guardiola, Tactics, Treble
+category: sports
+cover: /blog/pep.jpg
+coverAlt: Pep Guardiola on the touchline for Manchester City
+coverPosition: center 20%
+coverCredit: Steffen Prößdorf (crop by ArsenalGhanaPartey), CC BY-SA 4.0, via Wikimedia Commons
+coverCreditUrl: https://commons.wikimedia.org/wiki/File:Pep_Guardiola_2021.jpg
 ---
 
 On **10 June 2023** in Istanbul, Rodri's strike against Inter Milan completed something only one English men's team had managed before: the **Premier League, FA Cup and Champions League in a single season**. It was Pep Guardiola's first European title at City, and it came from a quiet but radical change in how his team was built.
