@@ -1,10 +1,11 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
+import { motion, useMotionValue, useSpring, useTransform, type MotionValue } from "framer-motion";
 import { ArrowDown, ArrowRight, Download, MapPin } from "lucide-react";
 import { profile } from "../lib/data";
 import { startPlay } from "./PlayToggle";
+import HeroCanvas from "./HeroCanvas";
 
 const orbitIcons = ["☕", "🧠", "🛡️", "⚙️", "🐘", "⚽"];
 
@@ -37,11 +38,59 @@ function useTypewriter(words: string[]) {
 const container = { hidden: {}, show: { transition: { staggerChildren: 0.09, delayChildren: 0.25 } } };
 const item = { hidden: { opacity: 0, y: 22, filter: "blur(6px)" }, show: { opacity: 1, y: 0, filter: "blur(0px)", transition: { duration: 0.7, ease: [0.16, 1, 0.3, 1] as const } } };
 
+
+const chips = [
+  { text: "☕ Spring Boot · 100K+ endpoints", x: "-9%", y: "18%", depth: 30, delay: 0 },
+  { text: "📉 ~90% fewer duplicate policies", x: "-11%", y: "46%", depth: 18, delay: 0.6 },
+  { text: "🧠 RAG · pgvector · MCP", x: "-7%", y: "74%", depth: 40, delay: 1.2 },
+  { text: "⚡ Kafka · transactional outbox", x: "85%", y: "16%", depth: 36, delay: 0.3 },
+  { text: "🛡️ C++ kernel drivers", x: "89%", y: "44%", depth: 22, delay: 0.9 },
+  { text: "🏆 $5K Hack-AI-Thon", x: "87%", y: "72%", depth: 32, delay: 1.5 },
+];
+
+function FloatChip({ c, mx, my }: { c: (typeof chips)[number]; mx: MotionValue<number>; my: MotionValue<number> }) {
+  const x = useTransform(mx, (v) => v * c.depth);
+  const y = useTransform(my, (v) => v * c.depth);
+  return (
+    <motion.div style={{ left: c.x, top: c.y, x, y }} className="absolute hidden min-[1400px]:block"
+      initial={{ opacity: 0, scale: 0.6 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.8 + c.delay * 0.4, type: "spring", stiffness: 120, damping: 14 }}>
+      <motion.div animate={{ y: [0, -10, 0] }} transition={{ duration: 4 + c.delay, repeat: Infinity, ease: "easeInOut", delay: c.delay }}
+        className="glass tilt whitespace-nowrap rounded-2xl px-4 py-2.5 text-sm font-medium" data-fx="14">
+        {c.text}
+      </motion.div>
+    </motion.div>
+  );
+}
+
+function Letters({ text, delay = 0 }: { text: string; delay?: number }) {
+  return (
+    <span aria-hidden="true" className="inline-block">
+      {[...text].map((ch, i) => (
+        <motion.span key={i} className="inline-block"
+          initial={{ opacity: 0, y: 40, rotateX: -90 }} animate={{ opacity: 1, y: 0, rotateX: 0 }}
+          transition={{ delay: delay + i * 0.045, type: "spring", stiffness: 200, damping: 16 }}
+          whileHover={{ y: -8, color: "#2cc6cf", transition: { duration: 0.15 } }}>
+          {ch === " " ? "\u00a0" : ch}
+        </motion.span>
+      ))}
+    </span>
+  );
+}
+
 export default function Hero() {
   const typed = useTypewriter(profile.rotating);
+  const rawX = useMotionValue(0), rawY = useMotionValue(0);
+  const mx = useSpring(rawX, { stiffness: 60, damping: 18 });
+  const my = useSpring(rawY, { stiffness: 60, damping: 18 });
+  const onMove = (e: React.PointerEvent) => {
+    rawX.set(e.clientX / window.innerWidth - 0.5);
+    rawY.set(e.clientY / window.innerHeight - 0.5);
+  };
 
   return (
-    <section id="top" className="relative flex min-h-[min(92vh,940px)] flex-col items-center justify-center pt-20 text-center">
+    <section id="top" onPointerMove={onMove} className="relative isolate flex min-h-[min(94vh,960px)] flex-col items-center justify-center pt-20 text-center">
+      <div className="pointer-events-none absolute inset-y-0 left-1/2 -z-10 w-screen -translate-x-1/2"><HeroCanvas /></div>
+      {chips.map((c) => <FloatChip key={c.text} c={c} mx={mx} my={my} />)}
       {/* avatar with a sweeping light ring and orbiting tech */}
       <motion.div
         initial={{ scale: 0.6, opacity: 0 }} animate={{ scale: 1, opacity: 1 }}
@@ -71,12 +120,17 @@ export default function Hero() {
       <motion.div variants={container} initial="hidden" animate="show">
         <motion.p variants={item} className="glass mx-auto inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-sm text-muted">
           <span className="relative flex h-2 w-2"><span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" /><span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400" /></span>
-          Open to backend, systems &amp; AI engineering roles
+          Open to software development &amp; AI roles
         </motion.p>
         <motion.p variants={item} className="mt-6 text-xl text-muted md:text-2xl">Hey, I&apos;m {profile.firstName} 👋</motion.p>
-        <motion.h1 variants={item} className="mx-auto mt-2 max-w-4xl text-balance text-5xl font-bold tracking-tight md:text-6xl lg:text-7xl">
-          Backend &amp; Systems <span className="font-display text-aurora pr-2 text-[1.1em]">Software</span> Engineer
-        </motion.h1>
+        <h1 className="mx-auto mt-2 max-w-4xl text-balance text-6xl font-bold tracking-tight [perspective:600px] md:text-7xl lg:text-8xl" aria-label={profile.role}>
+          <Letters text="Software" delay={0.45} />{" "}
+          <motion.span aria-hidden="true" className="font-display text-aurora inline-block pr-3 text-[1.1em]"
+            initial={{ opacity: 0, scale: 0.7, filter: "blur(12px)" }} animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
+            transition={{ delay: 0.9, duration: 0.9, ease: [0.16, 1, 0.3, 1] }}>
+            Developer
+          </motion.span>
+        </h1>
         <motion.p variants={item} className="mt-5 text-lg md:text-xl">
           I build <span className="caret font-semibold text-accent-2">{typed}</span>
         </motion.p>

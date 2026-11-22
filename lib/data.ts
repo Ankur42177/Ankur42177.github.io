@@ -4,7 +4,7 @@
 export const profile = {
   name: "Ankur Kumar",
   firstName: "Ankur",
-  role: "Backend & Systems Software Engineer",
+  role: "Software Developer",
   title: "Software Development Engineer II",
   company: "Trellix",
   location: "Bangalore, India",

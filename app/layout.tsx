@@ -8,7 +8,7 @@ const inter = Inter({ variable: "--font-inter", subsets: ["latin"] });
 const serif = Instrument_Serif({ variable: "--font-instrument", subsets: ["latin"], weight: "400", style: ["normal", "italic"] });
 
 export const metadata: Metadata = {
-  title: "Ankur Kumar — Backend & Systems Software Engineer",
+  title: "Ankur Kumar — Software Developer",
   description:
     "Portfolio of Ankur Kumar, SDE II at Trellix: Java/Spring Boot backend services, C++ Windows drivers, AI agents, and personal projects Pulse (microservices at scale) and Intruva (prompt security).",
   authors: [{ name: "Ankur Kumar" }],
