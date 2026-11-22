@@ -1,25 +1,33 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Instrument_Serif } from "next/font/google";
 import "./globals.css";
+import AmbientBackground from "../components/AmbientBackground";
+import CardFx from "../components/CardFx";
 
 const inter = Inter({ variable: "--font-inter", subsets: ["latin"] });
+const serif = Instrument_Serif({ variable: "--font-instrument", subsets: ["latin"], weight: "400", style: ["normal", "italic"] });
 
 export const metadata: Metadata = {
-  title: "Ankur Kumar — Software Developer & AI Engineer",
+  title: "Ankur Kumar — Backend & Systems Software Engineer",
   description:
-    "Portfolio of Ankur Kumar, Software Developer & AI Engineer at Trellix: agentic AI, LLMs and endpoint security.",
+    "Portfolio of Ankur Kumar, SDE II at Trellix: Java/Spring Boot backend services, C++ Windows drivers, AI agents, and personal projects Pulse (microservices at scale) and Intruva (prompt security).",
+  authors: [{ name: "Ankur Kumar" }],
 };
 
-// Applies the saved/system theme before first paint to avoid a light flash.
-const themeScript = `(function(){try{var t=localStorage.getItem('theme');if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme: dark)').matches))document.documentElement.classList.add('dark')}catch(e){}})()`;
+// Applies the saved theme before first paint (dark unless the visitor chose light) to avoid a flash.
+const themeScript = `(function(){try{var t=localStorage.getItem('theme');if(t!=='light')document.documentElement.classList.add('dark')}catch(e){document.documentElement.classList.add('dark')}})()`;
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${inter.variable} antialiased`} suppressHydrationWarning>
+    <html lang="en" className={`${inter.variable} ${serif.variable} antialiased`} suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
       </head>
-      <body className="min-h-screen font-sans">{children}</body>
+      <body className="min-h-screen font-sans">
+        <AmbientBackground />
+        <CardFx />
+        {children}
+      </body>
     </html>
   );
 }

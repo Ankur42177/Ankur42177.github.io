@@ -2,45 +2,201 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
+/*
+ * Design language: Intruva's dark liquid glass over a slow aurora, with Pulse's tilting playing cards.
+ * Dark is the default; light is an airy dusty-blue paper. Animate transform/opacity only.
+ */
 @theme {
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-instrument), ui-serif, Georgia, serif;
   --color-bg: var(--bg);
   --color-fg: var(--fg);
   --color-muted: var(--muted);
   --color-card: var(--card);
   --color-soft: var(--soft);
   --color-line: var(--line);
+  --color-accent: var(--accent);
+  --color-accent-2: var(--accent-2);
   --color-city: #6cabdd;
+  --color-iris: #8b7bff;
+  --color-aqua: #2cc6cf;
+  --color-coral: #e2675a;
+  --ease-out-expo: cubic-bezier(.16, 1, .3, 1);
+  --ease-spring: cubic-bezier(.34, 1.36, .64, 1);
 }
 
 :root {
-  --bg: #fafafa; --fg: #0a0a0a; --muted: #6b6b6b; --card: #ffffff; --soft: #f4f4f5; --line: #e5e5e5;
+  --bg: #f5f8fc; --fg: #14213d; --muted: #56627a; --card: rgb(255 255 255 / .72); --soft: #eaf0f7; --line: #dbe3ee;
+  --accent: #5b47e0; --accent-2: #13858c;
+  --glass-hi: rgb(255 255 255 / .9); --glass-lo: rgb(255 255 255 / .55); --glass-border: rgb(20 33 61 / .08);
+  --shadow: 0 18px 40px -22px rgb(20 33 61 / .28);
+  --aurora-a: #b9c8ff; --aurora-b: #a6ecef; --aurora-c: #ffd9c2; --aurora-op: .55;
   color-scheme: light;
 }
 .dark {
-  --bg: #09090b; --fg: #f4f4f5; --muted: #a1a1aa; --card: #131316; --soft: #1c1c21; --line: #27272a;
+  --bg: #05060b; --fg: #eef0f7; --muted: #9aa0b8; --card: rgb(18 20 32 / .55); --soft: rgb(255 255 255 / .05); --line: rgb(255 255 255 / .09);
+  --accent: #b2a6ff; --accent-2: #6fe3e8;
+  --glass-hi: rgb(255 255 255 / .075); --glass-lo: rgb(255 255 255 / .025); --glass-border: rgb(255 255 255 / .09);
+  --shadow: 0 24px 60px -28px rgb(0 0 0 / .8);
+  --aurora-a: #4b3bd1; --aurora-b: #0e8a92; --aurora-c: #7a3d6b; --aurora-op: .38;
   color-scheme: dark;
 }
 
 html { scroll-behavior: smooth; }
 body { background: var(--bg); color: var(--fg); overflow-x: clip; }
+::selection { background: color-mix(in srgb, var(--accent) 35%, transparent); }
+:focus-visible { outline: 2px solid var(--accent-2); outline-offset: 3px; border-radius: 10px; }
 /* Smooth colour fade when the theme is toggled */
 html.theme-anim, html.theme-anim * { transition: background-color .4s ease, border-color .4s ease, color .4s ease !important; }
 
+/* ------------------------------------------------------------------ ambient background */
+.aurora { position: fixed; inset: 0; z-index: -1; overflow: hidden; pointer-events: none; }
+.aurora i {
+  position: absolute; border-radius: 9999px; filter: blur(90px); opacity: var(--aurora-op);
+  will-change: transform;
+}
+.aurora i:nth-child(1) { width: 52vw; height: 52vw; left: -12vw; top: -14vw; background: var(--aurora-a); animation: drift-a 26s ease-in-out infinite alternate; }
+.aurora i:nth-child(2) { width: 44vw; height: 44vw; right: -10vw; top: 18vh; background: var(--aurora-b); animation: drift-b 32s ease-in-out infinite alternate; }
+.aurora i:nth-child(3) { width: 36vw; height: 36vw; left: 30vw; bottom: -16vw; background: var(--aurora-c); animation: drift-a 38s ease-in-out infinite alternate-reverse; }
+/* cursor spotlight: CardFx writes --cx/--cy on <html> */
+.aurora::after {
+  content: ""; position: absolute; inset: 0;
+  background: radial-gradient(520px circle at var(--cx, 50%) var(--cy, -20%), color-mix(in srgb, var(--accent) 14%, transparent), transparent 70%);
+}
+.grid-fade {
+  position: absolute; inset: 0;
+  background-image: linear-gradient(var(--line) 1px, transparent 1px), linear-gradient(90deg, var(--line) 1px, transparent 1px);
+  background-size: 64px 64px;
+  mask-image: radial-gradient(ellipse 80% 55% at 50% 0%, #000 30%, transparent 75%);
+  opacity: .55;
+}
+@keyframes drift-a { to { transform: translate3d(14vw, 10vh, 0) scale(1.15); } }
+@keyframes drift-b { to { transform: translate3d(-12vw, 14vh, 0) scale(.9); } }
+
+/* ------------------------------------------------------------------ surfaces */
+@utility glass {
+    background: linear-gradient(180deg, var(--glass-hi), var(--glass-lo)), var(--card);
+    border: 1px solid var(--glass-border);
+    box-shadow: inset 0 1px 0 rgb(255 255 255 / .06), var(--shadow);
+    backdrop-filter: blur(22px) saturate(160%);
+    -webkit-backdrop-filter: blur(22px) saturate(160%);
+}
 @layer components {
-.card {
-  @apply rounded-3xl border border-line bg-card p-6 shadow-[0_1px_2px_rgba(0,0,0,0.04)] transition duration-300 hover:-translate-y-1 hover:shadow-xl dark:hover:shadow-black/40;
-}
-.chip { @apply rounded-full border border-line bg-card px-3 py-1 text-sm text-muted; }
-.btn {
-  @apply inline-flex items-center gap-2 rounded-full bg-fg px-6 py-3 font-medium text-bg transition hover:opacity-85;
-}
-.btn-ghost {
-  @apply inline-flex items-center gap-2 rounded-full border border-line bg-card px-6 py-3 font-medium transition hover:border-fg;
-}
+  .card { @apply glass rounded-3xl p-6 transition duration-300; }
+  .chip { @apply rounded-full border border-line bg-soft px-3 py-1 text-sm text-muted; }
+  .btn {
+    @apply inline-flex items-center gap-2 rounded-full px-6 py-3 font-medium text-white transition active:scale-[.97];
+    background: linear-gradient(135deg, #8b7bff, #6551f0 45%, #2cc6cf);
+    background-size: 160% 160%; background-position: 0% 50%;
+    box-shadow: 0 12px 30px -12px rgb(101 81 240 / .7);
+    transition: background-position .6s var(--ease-out-expo), transform .2s, box-shadow .3s;
+  }
+  .btn:hover { background-position: 100% 50%; box-shadow: 0 16px 36px -12px rgb(44 198 207 / .6); }
+  .btn-ghost { @apply glass inline-flex items-center gap-2 rounded-full px-6 py-3 font-medium transition active:scale-[.97] hover:border-accent; }
+  .icon-btn { @apply glass grid h-10 w-10 place-items-center rounded-full transition hover:border-accent active:scale-95; }
 }
 
-/* Blog article typography */
+.text-aurora {
+  background: linear-gradient(100deg, #8b7bff, #2cc6cf 45%, #ffab7d 90%);
+  background-size: 200% auto;
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+  animation: shimmer 8s linear infinite;
+}
+:root:not(.dark) .text-aurora { background-image: linear-gradient(100deg, #5b47e0, #13858c 50%, #c2562f 95%); background-size: 200% auto; }
+@keyframes shimmer { to { background-position: 200% center; } }
+.font-display { font-family: var(--font-serif); font-style: italic; font-weight: 400; letter-spacing: -.01em; }
+
+/* rotating conic light around a border (hero avatar, focal cards) */
+@property --sweep { syntax: "<angle>"; inherits: false; initial-value: 0deg; }
+.frame-sweep { position: relative; isolation: isolate; }
+.frame-sweep::before {
+  content: ""; position: absolute; inset: -1px; z-index: -1; border-radius: inherit; padding: 1px;
+  background: conic-gradient(from var(--sweep), transparent 0 60%, #8b7bff 75%, #2cc6cf 88%, transparent 100%);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor; mask-composite: exclude;
+  animation: sweep 5s linear infinite;
+}
+@keyframes sweep { to { --sweep: 360deg; } }
+
+/* ------------------------------------------------------------------ 3D tilt + sheen (CardFx.tsx) */
+.tilt {
+  transform: perspective(1000px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)) translate3d(0, var(--lift, 0px), 0);
+  transition: transform .7s var(--ease-out-expo), border-color .3s, box-shadow .4s;
+  position: relative;
+}
+.tilt:hover { --lift: -4px; border-color: color-mix(in srgb, var(--accent) 40%, var(--glass-border)); }
+.tilt[data-fx-on] { transition: transform .14s ease-out, border-color .3s, box-shadow .4s; }
+.tilt::after {
+  content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none; opacity: 0;
+  background: radial-gradient(380px circle at var(--mx, 50%) var(--my, 50%), rgb(255 255 255 / .12), transparent 60%);
+  transition: opacity .3s;
+}
+.tilt[data-fx-on]::after { opacity: 1; }
+
+/* ------------------------------------------------------------------ playing cards + deck (Projects) */
+.pcard {
+  position: absolute; inset: 0; overflow: hidden; isolation: isolate; border-radius: 22px;
+  box-shadow: 0 30px 60px -30px rgb(0 0 0 / .75), 0 0 0 1px rgb(255 255 255 / .1);
+  color: #fff; user-select: none;
+}
+.pcard::after { content: ""; position: absolute; inset: 9px; border-radius: 15px; border: 1px solid rgb(255 255 255 / .25); pointer-events: none; z-index: 3; }
+.pcard-shine {
+  position: absolute; inset: 0; z-index: 2; pointer-events: none; mix-blend-mode: overlay;
+  background: linear-gradient(115deg, transparent 30%, rgb(255 255 255 / .35) 45%, transparent 60%);
+  background-size: 250% 100%; background-position: 120% 0; transition: background-position 1s var(--ease-out-expo);
+}
+.deck:hover .deck-card[data-pos="0"] .pcard-shine { background-position: -20% 0; }
+
+.deck {
+  position: relative; width: min(100%, 300px); aspect-ratio: 5 / 7; margin-inline: auto;
+  touch-action: pan-y; user-select: none; -webkit-user-select: none;
+}
+.deck:focus-visible { outline: none; }
+.deck:focus-visible .deck-card[data-pos="0"] .pcard { outline: 2px solid var(--accent-2); outline-offset: 4px; }
+.deck-card {
+  position: absolute; inset: 0; transform-origin: 50% 118%;
+  --tx: calc(var(--d) * 11px); --ty: calc(var(--d) * -9px); --rot: calc(var(--d) * 2.6deg); --sc: calc(1 - var(--d) * .04);
+  transform: translate3d(var(--tx), var(--ty), 0) rotate(var(--rot)) scale(var(--sc));
+  z-index: calc(40 - var(--d));
+  transition: transform .6s var(--ease-spring), opacity .45s ease, filter .45s ease;
+  will-change: transform;
+}
+.deck-card:not([data-pos="0"]) { cursor: pointer; filter: brightness(.8) saturate(.85); }
+@media (hover: hover) {
+  .deck:hover .deck-card { --tx: calc(var(--f) * 26%); --ty: calc(var(--d) * 2%); --rot: calc(var(--f) * 8deg); --sc: calc(1 - var(--d) * .035); }
+}
+.deck-card[data-pos="0"] { transform: translate3d(calc(var(--tx) + var(--drag, 0px)), var(--ty), 0) rotate(calc(var(--rot) + var(--drag, 0px) * .04deg)) scale(var(--sc)); }
+.deck[data-dragging] .deck-card[data-pos="0"] { transition: none; }
+.deck-card[data-leaving] { transform: translate3d(var(--fly, -120%), 8%, 0) rotate(var(--fly-rot, -18deg)) scale(.9) !important; opacity: 0; transition: transform .5s var(--ease-out-expo), opacity .5s ease; }
+
+/* ------------------------------------------------------------------ misc motion */
+.marquee { mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent); }
+.marquee > div { animation: marquee 40s linear infinite; }
+.marquee:hover > div { animation-play-state: paused; }
+@keyframes marquee { to { transform: translateX(-50%); } }
+
+.orbit { animation: spin 22s linear infinite; }
+.orbit > span { animation: spin 22s linear infinite reverse; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* packets travelling along a flow line */
+.flow-line { position: relative; height: 2px; background: var(--line); overflow: hidden; border-radius: 2px; }
+.flow-line::after {
+  content: ""; position: absolute; top: 0; left: -30%; width: 30%; height: 100%;
+  background: linear-gradient(90deg, transparent, var(--accent-2), transparent);
+  animation: packet 1.6s ease-in-out infinite; animation-delay: var(--delay, 0s);
+}
+@keyframes packet { to { left: 100%; } }
+
+.caret::after { content: ""; display: inline-block; width: 2px; height: .95em; margin-left: 3px; vertical-align: -0.1em; background: currentColor; animation: blink 1s steps(1) infinite; }
+@keyframes blink { 50% { opacity: 0; } }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; transition-duration: .001ms !important; }
+  html { scroll-behavior: auto; }
+}
+
+/* ------------------------------------------------------------------ blog article typography */
 .prose-blog { @apply text-lg leading-relaxed text-fg/90; }
 .prose-blog h2 { @apply mt-12 mb-4 text-2xl font-bold text-fg; }
 .prose-blog h3 { @apply mt-8 mb-3 text-xl font-semibold text-fg; }
@@ -65,3 +221,6 @@ html.theme-anim, html.theme-anim * { transition: background-color .4s ease, bord
 .dark .theme-sky {
   --bg: #08131f; --fg: #e8f2fb; --muted: #8fb0cc; --card: #0f2133; --soft: #13293f; --line: #1d3a55;
 }
+
+/* the sticky navbar sits over busy content: a near-opaque tint so text underneath never shows through */
+.nav-glass { background: color-mix(in srgb, var(--bg) 92%, transparent) !important; }

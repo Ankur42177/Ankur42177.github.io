@@ -2,6 +2,7 @@ import Navbar from "../components/Navbar";
 import Hero from "../components/Hero";
 import Projects from "../components/Projects";
 import Experience from "../components/Experience";
+import Lab from "../components/Lab";
 import Skills from "../components/Skills";
 import Playbook from "../components/Playbook";
 import Contact from "../components/Contact";
@@ -13,10 +14,11 @@ export default function Home() {
   return (
     <>
       <Navbar />
-      <main className="mx-auto max-w-5xl px-5">
+      <main className="mx-auto max-w-6xl px-5">
         <Hero />
         <Projects />
         <Experience />
+        <Lab />
         <Skills />
         <Playbook posts={posts} />
         <Contact />
